@@ -1,0 +1,8 @@
+D:\VS Workspace\MovieDatabase\Services\bin\Debug\Services.dll.config
+D:\VS Workspace\MovieDatabase\Services\bin\Debug\Services.dll
+D:\VS Workspace\MovieDatabase\Services\bin\Debug\Services.pdb
+D:\VS Workspace\MovieDatabase\Services\bin\Debug\Tools.dll
+D:\VS Workspace\MovieDatabase\Services\bin\Debug\Tools.pdb
+D:\VS Workspace\MovieDatabase\Services\obj\Debug\Services.csprojResolveAssemblyReference.cache
+D:\VS Workspace\MovieDatabase\Services\obj\Debug\Services.dll
+D:\VS Workspace\MovieDatabase\Services\obj\Debug\Services.pdb

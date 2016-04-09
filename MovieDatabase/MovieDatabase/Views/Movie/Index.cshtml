@@ -1,0 +1,91 @@
+﻿@model MovieDatabase.Models.Movie
+
+@{ 
+    ViewBag.Title = "Movie";
+
+    var genreList = ViewData["GenreList"] as List<MovieDatabase.Models.Genre>;
+    var actorList = ViewData["ActorList"] as List<MovieDatabase.Models.Actor>;
+
+    var genreDropdown = genreList.OrderBy(c => c.Name).Select(c => new SelectListItem { Text = c.Name, Value = c.ID.ToString() }).ToList();
+    genreDropdown.Insert(0, new SelectListItem { Text = "Select...", Value = "" });
+}
+
+@section css {
+    <style type="text/css">
+        .table-scroll {
+            overflow: auto;
+            max-height: 150px;
+            width: 200px;
+        }
+    </style>
+}
+
+<div class="page-header"><h1>@(Model == null || Model.ID == 0 ? "Add Movie" : "Edit Movie")</h1></div>
+
+@using (Html.BeginForm("SubmitMovie", "Movie", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.ID)
+    <div class="col-sm-1 text-right">@Html.LabelFor(model => model.Title)</div> @Html.TextBoxFor(model => model.Title, new { maxlength = 200, size = 75 }) @Html.ValidationMessageFor(model => model.Title)
+    <br />
+    <br />
+    <div class="col-sm-1 text-right">@Html.LabelFor(model => model.Year)</div> @Html.TextBoxFor(model => model.Year, new { maxlength = 4, size = 4 }) @Html.ValidationMessageFor(model => model.Year)
+    <br />
+    <br />
+    <div class="col-sm-1 text-right">@Html.LabelFor(model => model.Genre)</div> @Html.DropDownListFor(model => model.Genre.ID, genreDropdown)  @Html.ValidationMessageFor(model => model.Genre.ID)
+    <br />
+    <br />
+    <div class="col-sm-1 text-right">@Html.Label("Actor(s)")</div>
+    <div class="table-scroll">
+        <table>
+            @foreach(var actor in actorList.OrderBy(c => c.LastName))
+            {
+                <tr>
+                    <td>@Html.CheckBox("ActorSelected", Model.Actors.Any(c => c.ID == actor.ID), new { @class = "actor", data_id = actor.ID })</td>
+                    <td>@(actor.FirstName + " " + actor.LastName)</td>
+                </tr>
+            }
+        </table>
+    </div>
+    <br />
+    <div class="col-sm-1"></div><input type="submit" value="Save" class="btn btn-default" /> @Html.ActionLink("Back", "Index", new { controller = "Home" })
+}
+
+@section scripts {
+    <script type="text/javascript">
+        $(window).load(function () {
+            $("input.actor[type=checkbox]").click(function () {
+                if (this.checked) {
+                    $.ajax({
+                        url: '@Url.Action("AddActor", "Movie")',
+                        data: JSON.stringify({ movieID: @Model.ID, actorID: $(this).data("id") }),
+                        dataType: "json",
+                        contentType: "application/json",
+                        method: "POST",
+                        success: function (data) {
+                            //alert('Success! ' + JSON.stringify(data));
+                        },
+                        error: function (e) {
+                            //alert(e.responseText);
+                        }
+                    });
+                }
+                else {
+                    $.ajax({
+                        url: '@Url.Action("RemoveActor", "Movie")',
+                        data: JSON.stringify({ movieID: @Model.ID, actorID: $(this).data("id") }),
+                        dataType: "json",
+                        contentType: "application/json",
+                        method: "POST",
+                        success: function (data) {
+                            //alert('Success! ' + JSON.stringify(data));
+                        },
+                        error: function (e) {
+                            //alert(e.responseText);
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+}

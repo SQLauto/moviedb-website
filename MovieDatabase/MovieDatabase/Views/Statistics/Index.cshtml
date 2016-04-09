@@ -1,0 +1,102 @@
+﻿@model MovieDatabase.Models.Statistics
+
+@{
+    ViewBag.Title = "Statistics";
+
+}
+
+@section css {
+    <style type="text/css">
+        table {
+            display: inline-block;
+            vertical-align: top;
+            margin-right: 5px;
+        }
+        th {
+            text-align: center;
+            padding-left: 5px;
+            padding-right: 5px;
+        }
+        td:first-child {
+            padding-right: 10px;
+            text-align: left;
+        }
+        td:last-child {
+            padding-left: 10px;
+            text-align: right;
+        }
+        h1,h4 {
+            display: inline-block;
+        }
+    </style>    
+}
+
+<div class="page-header">
+    <h1>Statistics</h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<h4><b>@Html.ActionLink("Back", "Index", new { controller = "Home" })</b></h4>
+</div>
+
+<table border="1">
+    <tr>
+        <th colspan="2">@Html.LabelFor(m => m.ActorsPerMovie)</th>
+    </tr>
+    @foreach (var pair in Model.ActorsPerMovie.OrderBy(c => c.Key))
+    {
+        <tr>
+            <td>@pair.Key</td>
+            <td>@pair.Value</td>
+        </tr>
+    }
+</table>
+
+<table border="1">
+    <tr>
+        <th colspan="2">@Html.LabelFor(m => m.ActorsPerGenre)</th>
+    </tr>
+    @foreach (var pair in Model.ActorsPerGenre.OrderBy(c => c.Key))
+    {
+        <tr>
+            <td>@pair.Key</td>
+            <td>@pair.Value</td>
+        </tr>
+    }
+</table>
+
+<table border="1">
+    <tr>
+        <th colspan="2">@Html.LabelFor(m => m.MoviesPerActor)</th>
+    </tr>
+    @foreach (var pair in Model.MoviesPerActor.OrderBy(c => c.Key))
+    {
+        <tr>
+            <td>@pair.Key</td>
+            <td>@pair.Value</td>
+        </tr>
+    }
+</table>
+
+<table border="1">
+    <tr>
+        <th colspan="2">@Html.LabelFor(m => m.MoviesPerGenre)</th>
+    </tr>
+    @foreach (var pair in Model.MoviesPerGenre.OrderBy(c => c.Key))
+    {
+        <tr>
+            <td>@pair.Key</td>
+            <td>@pair.Value</td>
+        </tr>
+    }
+</table>
+
+<table border="1">
+    <tr>
+        <th colspan="2">@Html.Label("Totals")</th>
+    </tr>
+    <tr>
+        <td>Movies</td>
+        <td>@Model.NumberOfMovies</td>
+    </tr>
+    <tr>
+        <td>Actors</td>
+        <td>@Model.NumberOfActors</td>
+    </tr>
+</table>

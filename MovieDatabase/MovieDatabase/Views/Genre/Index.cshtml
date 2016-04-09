@@ -1,0 +1,63 @@
+﻿@model MovieDatabase.Models.Genre
+@{ 
+    ViewBag.Title = "Genre";
+
+    var actorList = ViewData["ActorList"] as List<MovieDatabase.Models.Actor>;
+
+}
+
+@section css {
+    <style type="text/css">
+        form {
+            width: 35%;
+            padding: 0px 0px 0px 0px;
+            margin: 0px 0px 0px 0px;
+            display: inline-block;
+        }
+        table {
+            padding: 0px 0px 0px 0px;
+            margin: 0px 0px 0px 0px;
+            display: inline-block;
+            vertical-align: top;
+        }
+        .table-scroll {
+            overflow: auto;
+            max-height: 250px;
+            width: 200px;
+        }
+    </style>    
+}
+
+<div class="page-header"><h1>@(Model == null || Model.ID == 0 ? "Add Genre" : "Edit Genre")</h1></div>
+
+@using (Html.BeginForm(controllerName: "Genre", actionName: "SubmitGenre", method: FormMethod.Post, htmlAttributes: new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.ID)
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "col-sm-2" }) 
+        @Html.TextBoxFor(model => model.Name, htmlAttributes: new { @class = "col-sm-4", @style = "padding-left: 5px" }) 
+        @Html.ValidationMessageFor(model => model.Name)
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-4" style="padding-left: 0px">
+            <input type="submit" value="Save" class="btn btn-default" /> @Html.ActionLink("Back", "Index", new { controller = "Home" })
+        </div>
+    </div>
+}
+
+@if (actorList != null && actorList.Count > 0)
+{
+<table>
+    <tr>
+        <th colspan="2">Actors In This Genre</th>
+    </tr>
+    @foreach (var actor in actorList.OrderBy(c => c.LastName))
+    {
+        <tr>
+            <td>@(actor.FirstName + " " + actor.LastName)</td>
+        </tr>
+    }
+</table>
+}

@@ -1,0 +1,4 @@
+D:\VS Workspace\MovieDatabase\Tools\bin\Debug\Tools.dll
+D:\VS Workspace\MovieDatabase\Tools\bin\Debug\Tools.pdb
+D:\VS Workspace\MovieDatabase\Tools\obj\Debug\Tools.dll
+D:\VS Workspace\MovieDatabase\Tools\obj\Debug\Tools.pdb
