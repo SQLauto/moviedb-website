@@ -36,7 +36,7 @@ namespace Services
         Movie GetMovie(int id);
 
         [OperationContract]
-        List<Movie> GetMovies(int actionID);
+        List<Movie> GetMovies(int actorID);
 
         [OperationContract]
         Movie SubmitMovie(Movie movie);
@@ -54,10 +54,10 @@ namespace Services
         bool DeleteMovie(int id);
 
         [OperationContract]
-        bool AddActorToMovie(int actionID, int movieID);
+        bool AddActorToMovie(int actorID, int movieID);
 
         [OperationContract]
-        bool RemoveActorFromMovie(int actionID, int movieID);
+        bool RemoveActorFromMovie(int actorID, int movieID);
     }
 
     public class MovieDBService : IMovieDBService
@@ -72,7 +72,7 @@ namespace Services
                 {
                     var parameters = new List<SqlParameter>
                 {
-                    new SqlParameter("@actionID", actorID),
+                    new SqlParameter("@actorID", actorID),
                     new SqlParameter("@movieID", movieID)
                 };
 
@@ -286,14 +286,14 @@ namespace Services
             return null;
         }
 
-        public List<Movie> GetMovies(int actionID = 0)
+        public List<Movie> GetMovies(int actorID = 0)
         {
             var output = new List<Movie>();
             using (var connection = DBTools.GetConnection(MovieDBConnectionName))
             {
                 var parameters = new List<SqlParameter>
                 {
-                    new SqlParameter("@actionID", actionID)
+                    new SqlParameter("@actorID", actorID)
                 };
 
                 using (var reader = connection.ExecuteStoredProcedure("GetMovies", parameters))
@@ -364,7 +364,7 @@ namespace Services
                 {
                     var parameters = new List<SqlParameter>
                 {
-                    new SqlParameter("@actionID", actorID),
+                    new SqlParameter("@actorID", actorID),
                     new SqlParameter("@movieID", movieID)
                 };
 
@@ -472,7 +472,7 @@ namespace Services
                     {
                         parameters = new List<SqlParameter>
                         {
-                            new SqlParameter("@actionID", output.ID),
+                            new SqlParameter("@actorID", output.ID),
                             new SqlParameter("@movieID", actor.ID)
                         };
 
