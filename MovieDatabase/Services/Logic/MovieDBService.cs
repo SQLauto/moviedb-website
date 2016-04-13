@@ -274,7 +274,7 @@ namespace Services
                         {
                             ID = reader.GetInt32("ID"),
                             Title = reader.GetString("Title"),
-                            Year = reader.GetInt32("Year"),
+                            Year = reader.GetInt16("Year"),
                             Genre = GetGenre(reader.GetInt32("GenreID"))
                         };
 
@@ -304,7 +304,7 @@ namespace Services
                         {
                             ID = reader.GetInt32("ID"),
                             Title = reader.GetString("Title"),
-                            Year = reader.GetInt32("Year"),
+                            Year = reader.GetInt16("Year"),
                             Genre = GetGenre(reader.GetInt32("GenreID"))
                         });
                     }
@@ -460,7 +460,7 @@ namespace Services
                         {
                             ID = reader.GetInt32("ID"),
                             Title = reader.GetString("Title"),
-                            Year = reader.GetInt32("Year"),
+                            Year = reader.GetInt16("Year"),
                             Genre = GetGenre(reader.GetInt32("GenreID"))
                         };
                     }

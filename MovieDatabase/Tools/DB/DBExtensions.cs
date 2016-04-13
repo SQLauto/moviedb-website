@@ -56,6 +56,11 @@ namespace Tools.DB
             return reader.GetInt32(reader.GetOrdinal(columnName));
         }
 
+        public static short GetInt16(this SqlDataReader reader, string columnName)
+        {
+            return reader.GetInt16(reader.GetOrdinal(columnName));
+        }
+
         public static int GetInt32(this DataRow row, string columnName)
         {
             return row.Field<int>(columnName);
